@@ -1,0 +1,49 @@
+* Swiper-follow
+
+Follow through on [[https://github.com/abo-abo/swiper][=swiper=]] matches.
+
+=swiper-follow= implements quick jumping between =swiper= matches. Highlights all matches and the
+line jumped to.
+
+* Example config
+
+#+BEGIN_SRC emacs-lisp
+(use-package swiper-follow
+  :after swiper
+  :bind (("M-n" . swiper-follow-forward)
+	 ("M-p" . swiper-follow-backward)))
+#+END_SRC
+
+The length of the highlight can be customized with =swiper-follow-timeout=.
+
+* Why
+
+It is often useful to jump between multiple uses of a symbol. The use-case here is to use =swiper=
+for the initial search, and then keybinds =M-n= and =M-p= to move between matches. This is somewhat
+similar to the default =isearch= behavior, or =n/N= in =vim=.
+
+There were no out-of-the-box solutions to jump around the matches.
+
+** Other solutions
+
+Here are some ways to achieve a similar behavior, after an initial search:
+
+- =C-s C-s C-n C-j= would open the =swiper= minibuffer, recall previous history item, go to the next
+  match, and then accept. This is okay, but requires 4 keystrokes to simply jump to the next match.
+
+- =C-c C-r C-n C-j= where =C-c C-r= is bound to =ivy-resume=. This is also okay, but requires as
+  many keystrokes. Also, this can be interrupted by an =M-x= invocation.
+
+- Within a =swiper= interaction, =C-s C-o= would open the =occur= buffer, which can be navigated
+  with =next-error= and =previous-error=. But it's a little too much to have an extra buffer open
+  just to navigate matches.
+
+** Simpler solution
+
+If you don't want to install another package for a minor interaction, here is a simpler version
+without highlights:
+
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "M-n") (lambda () (interactive) (search-forward (car swiper-history))))
+(global-set-key (kbd "M-p") (lambda () (interactive) (search-backward (car swiper-history))))
+#+END_SRC
