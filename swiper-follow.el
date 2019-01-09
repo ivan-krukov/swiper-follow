@@ -37,7 +37,7 @@
 (require 'swiper)
 
 (defgroup swiper-follow nil
-  "`swiper' hacks"
+  "Jump between swiper matches"
   :group 'matching
   :prefix "swiper-follow-")
 
@@ -47,17 +47,17 @@
 
 (defvar swiper-follow--highlight-timer (run-at-time nil nil (lambda ())))
 
-(defun timer-get-function (timer)
+(defun swiper-follow--timer-get-function (timer)
   (elt timer 5))
 
-(defun timer-actualize (timer)
-  (let ((fun (timer-get-function timer)))
+(defun swiper-follow--timer-actualize (timer)
+  (let ((fun (swiper-follow--timer-get-function timer)))
     (cancel-timer timer)
     (funcall fun)))
 
 (defun swiper-follow (search-f)
-  (let* ((swiper-last (car swiper-history)))
-    (timer-actualize swiper-follow--highlight-timer)
+  (let ((swiper-last (car swiper-history)))
+    (swiper-follow--timer-actualize swiper-follow--highlight-timer)
     (funcall search-f swiper-last nil t)
     (swiper--add-overlays swiper-last)
     (setq swiper-follow--highlight-timer
