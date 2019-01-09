@@ -1,6 +1,6 @@
 * Swiper-follow
 
-Follow through on [[https://github.com/abo-abo/swiper][=swiper=]] matches.
+Follow through on [[https://github.com/abo-abo/swiper][swiper]] matches.
 
 =swiper-follow= implements quick jumping between =swiper= matches. Highlights all matches and the
 line jumped to.

@@ -3,7 +3,7 @@
 ;; Author: Ivan Krukov
 ;; Maintainer: Ivan Krukov
 ;; Version: 0.0
-;; Package-Requires: (swiper, thingatpt)
+;; Package-Requires: (swiper)
 ;; Homepage: homepage
 ;; Keywords: matching
 
@@ -35,7 +35,6 @@
 ;;; Code:
 
 (require 'swiper)
-(require 'thingatpt)
 
 (defgroup swiper-follow nil
   "`swiper' hacks"
